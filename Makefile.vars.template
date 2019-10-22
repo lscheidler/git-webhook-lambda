@@ -1,0 +1,2 @@
+RULES := '{"bitbucket":{"repo:push":[{"type": "sqs", "method": "SendMessage", "queueUrl": "https://sqs.<region>.amazonaws.com/<account-id>/<queue-name>"}, {"type": "ec2", "method": "StartInstances", "instanceIds": ["i-0123456789abcdef0", "i-0123456789abcdef1"]}]}}'
+FILTER := '{"bitbucket": {}}'

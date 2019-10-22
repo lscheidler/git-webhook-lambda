@@ -1,0 +1,7 @@
+.terraform
+git-webhook-lambda
+git-webhook-lambda.zip
+Makefile.vars
+terraform*
+variables_override.tf
+vendor
