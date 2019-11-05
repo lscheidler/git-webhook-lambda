@@ -14,7 +14,9 @@ resource "aws_lambda_function" "git-webhook-lambda" {
         "bitbucket" : {
           "repo:push" : [
             { "type" : "sqs", "method" : "SendMessage", "queueUrl" : aws_sqs_queue.git-webhook.id },
-            {"type": "ec2", "method": "StartInstances", "instanceIds": var.start_instances},
+            #{"type": "ec2", "method": "StartInstances", "instanceIds": var.start_instances},
+            #{"type": "rest", "method": "POST", "endpoint": "<rest-endpoint>", "data": {}},
+            {"type": "lambda", "function": var.lambda_function, "region": var.lambda_function_region, "qualifier": "dev", "data":{"httpMethod": "POST", "path": "/", "queryStringParameters": {}, "headers": {"accept": "application/json"}, "body": jsonencode({"ids":var.start_instances, "type":"state","newState":"running"})}},
           ]
         }
         }

@@ -22,6 +22,13 @@ resource "aws_iam_policy" "git-webhook-lambda_policy" {
         "sqs:SendMessage"
       ],
       "Resource": "${aws_sqs_queue.git-webhook.arn}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "lambda:InvokeFunction"
+      ],
+      "Resource": "${var.other_lambda_function_arn}"
     }
   ]
 }

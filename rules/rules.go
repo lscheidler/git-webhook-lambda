@@ -22,6 +22,8 @@ import (
 
 	"github.com/lscheidler/git-webhook-lambda/rules/hooks"
 	"github.com/lscheidler/git-webhook-lambda/rules/hooks/ec2"
+	"github.com/lscheidler/git-webhook-lambda/rules/hooks/lambda"
+	"github.com/lscheidler/git-webhook-lambda/rules/hooks/rest"
 	"github.com/lscheidler/git-webhook-lambda/rules/hooks/sqs"
 )
 
@@ -58,10 +60,14 @@ func (h *Hook) UnmarshalJSON(b []byte) error {
 	}
 	var plugin hooks.Hook
 	switch settings["type"] {
-	case "sqs":
-		plugin = sqs.Load(settings)
 	case "ec2":
 		plugin = ec2.Load(settings)
+	case "lambda":
+		plugin = lambda.Load(settings)
+	case "rest":
+		plugin = rest.Load(settings)
+	case "sqs":
+		plugin = sqs.Load(settings)
 	}
 	*h = Hook{Plugin: plugin}
 	return nil
